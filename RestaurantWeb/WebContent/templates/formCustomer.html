@@ -1,0 +1,26 @@
+<form name="userForm" novalidate>
+  
+  
+  <div class="form-group" ng-class="{ 'has-error': userForm.name.$invalid  && submitted}" >
+    <label class="control-label">Nome</label>
+    <input type="text" class="form-control" name="name" ng-model="customer.name" ng-minlength="3" required placeholder="Nome" />
+    <p ng-show="userForm.name.$error.minlength && submitted" class="help-block">Nome deve conter no minimo 3 caracteres.</p>
+  </div>
+  <div class="form-group" ng-class="{ 'has-error': userForm.phone.$invalid && submitted}" >
+    <label class="control-label">Telefone</label>
+    <input type="phone" class="form-control" name="phone" ng-model="customer.phone" ng-minlength="8" required placeholder="Telefone" />
+    <p ng-show="userForm.phone.$error.minlength && submitted" class="help-block">Telefone deve conter no minimo 8 digitos.</p>
+  </div>
+  <div class="form-group" ng-class="{ 'has-error': userForm.email.$invalid && submitted}" >
+    <label class="control-label">E-mail</label>
+    <input type="email" class="form-control" name="email" ng-model="customer.email" required placeholder="E-mail" />
+    <p ng-show="userForm.email.$invalid && submitted " class="help-block">Email esta no formato invalido</p>
+  </div>
+  
+  <button type="submit" class="btn btn-primary" ng-click="save()" >Salvar</button>
+  <div class="btn-group" ng-if="showButtonNew == true">
+  	<button type="submit" class="btn btn-secondary" ng-click="new_()" >Novo</button>
+  </div>  
+  
+</form>
+

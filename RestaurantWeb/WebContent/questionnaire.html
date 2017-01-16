@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link data-require="bootstrap-css@3.0.1" data-semver="3.0.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" />
+    <script src="http://code.angularjs.org/1.2.5/angular.js" data-semver="1.2.5" data-require="angular.js@1.2.5"></script>
+    <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script data-require="bootstrap@3.0.1" data-semver="3.0.1" src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/questionnaire.js"></script>
+  </head>
+
+  <body>
+    <h1>Questionario</h1>
+    <div ng-app="QuestionarioApp">
+	    <div ng-controller="QuestionarioCtrl">
+	          <form name="questionForm" novalidate> 
+	            <div ng-repeat="question in questions | orderBy:'order' ">
+			       <div ng-if="question.parent_answer == 0  || showquestion[question.parent_answer] =='YES'"  
+			       		ng-class="{ 'has-error' : question_answered[question.id] != 'YES'}"> 
+			      
+			      	  <label class="control-label">{{ question.description }}</label><br />
+				      <div ng-if="question.multiple_choice == 1">
+					       <select 
+					       		  ng-model="selectedQuestion"
+					      		  ng-change="chanceChoice(selectedQuestion)" required>
+								<option ng-repeat="choice in question.choices" value="{{choice}}">{{choice.description}}</option>
+						   </select>
+					   </div>
+					   <div ng-if="question.multiple_choice == 0">
+					        <textarea 
+					        	ng-model-options="{ updateOn: 'blur'}"
+					        	ng-model="answerQuestion" 
+					        	ng-blur ="blur(question,answerQuestion)" required>
+					        	</textarea>
+					   </div>
+					  
+			      	</div>			       
+			    </div>
+			    <button type="submit" class="btn btn-primary" ng-click="save()" ng-disabled="questionForm.$invalid">Salvar</button>
+			</form>
+			        			   
+	    </div>
+	</div>
+      
+  </body>
+
+</html>
